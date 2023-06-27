@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>WebLogAnalysisTask2</artifactId>
+    <artifactId>WebLogAnalysisTask1</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
