@@ -67,35 +67,37 @@ public class Task1 {
                            Context context
         ) throws IOException,
                 InterruptedException {
-            String res[] = key.toString().split("\\|");
-            context.write(new Text("remote_addr:"),new Text(res[0]));
-            context.write(new Text("remote_user:"),new Text(res[1]));
-            context.write(new Text("time_local:"),new Text(res[2]));
-            context.write(new Text("request:"),new Text(res[3]));
-            context.write(new Text("status:"),new Text(res[4]));
-            context.write(new Text("body_bytes_sent:"),new Text(res[5]));
-            context.write(new Text("http_referer:"),new Text(res[6]));
-            context.write(new Text("http_user_agent:"),new Text(res[7]));
-            String tmp1[] = res[2].split("/");
-            String tmp2[]  = tmp1[2].split(":");
-            String month;
-            switch(tmp1[1]){
-                case "Jan":month = "01";break;
-                case "Feb":month = "02";break;
-                case "Mar":month = "03";break;
-                case "Apr":month = "04";break;
-                case "May":month = "05";break;
-                case "Jun":month = "06";break;
-                case "Jul":month = "07";break;
-                case "Aug":month = "08";break;
-                case "Sep":month = "09";break;
-                case "Oct":month = "10";break;
-                case "Nov":month = "11";break;
-                case "Dec":month = "12";break;
-                default:month = "-1";
+            for(IntWritable v:values){
+                String res[] = key.toString().split("\\|");
+                context.write(new Text("remote_addr:"),new Text(res[0]));
+                context.write(new Text("remote_user:"),new Text(res[1]));
+                context.write(new Text("time_local:"),new Text(res[2]));
+                context.write(new Text("request:"),new Text(res[3]));
+                context.write(new Text("status:"),new Text(res[4]));
+                context.write(new Text("body_bytes_sent:"),new Text(res[5]));
+                context.write(new Text("http_referer:"),new Text(res[6]));
+                context.write(new Text("http_user_agent:"),new Text(res[7]));
+                String tmp1[] = res[2].split("/");
+                String tmp2[]  = tmp1[2].split(":");
+                String month;
+                switch(tmp1[1]){
+                    case "Jan":month = "01";break;
+                    case "Feb":month = "02";break;
+                    case "Mar":month = "03";break;
+                    case "Apr":month = "04";break;
+                    case "May":month = "05";break;
+                    case "Jun":month = "06";break;
+                    case "Jul":month = "07";break;
+                    case "Aug":month = "08";break;
+                    case "Sep":month = "09";break;
+                    case "Oct":month = "10";break;
+                    case "Nov":month = "11";break;
+                    case "Dec":month = "12";break;
+                    default:month = "-1";
+                }
+                String date = tmp2[0] + month + tmp1[0] + tmp2[1];
+                context.write(new Text("date:"),new Text(date));
             }
-            String date = tmp2[0] + month + tmp1[0] + tmp2[1];
-            context.write(new Text("date:"),new Text(date));
         }
     }
 
